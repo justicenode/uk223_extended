@@ -8,7 +8,6 @@ stages:
   - continousDelivery
 
 before_install:
-  - chmod +x gradlew
 #  - sudo apt-get update
 
 #install:
@@ -23,7 +22,9 @@ addons:
 jobs:
   include:
     - stage: continousIntegration
-      script: ./gradlew sonarqube
+      script: 
+        - chmod +x gradlew
+        - ./gradlew sonarqube
     - stage: continousDelivery
       deploy:
         provider: heroku
