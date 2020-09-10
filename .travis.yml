@@ -23,7 +23,7 @@ jobs:
       script:
         - heroku container:login
         - heroku container:push web -a $HEROKU_STAGING_APP
-        - heroku container:release web
+        - heroku container:release web -a $HEROKU_STAGING_APP
     - stage: systemtests
       before_install:
         - sudo apt-get update
