@@ -4,7 +4,7 @@ node_js:
   - 10
 
 stages:
-#  - continousIntegration
+  - continousIntegration
   - continousDelivery
 
 before_install:
@@ -30,6 +30,5 @@ jobs:
         api-key: $HEROKU_API_KEY
         app: $HEROKU_STAGING_APP
       after_success:
-      script:
         - while [ $(curl -o /dev/null -s -w "%{http_code}\n" https://$HEROKU_STAGING_APP.herokuapp.com/) != 404 ];do echo 'Waiting for the Application to be started'; sleep 5; done
         - newman run src/test/java/systemtests/collection/CRUD.postman_collection.json -e src/test/java/systemtests/environment/justicenode.postman_environment.json
