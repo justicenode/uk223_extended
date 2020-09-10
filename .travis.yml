@@ -23,6 +23,8 @@ jobs:
         - rm ./build/.gitignore
       script:
         - heroku git:remote -a $HEROKU_STAGING_APP
+        - echo $HEROKU_API_KEY
+        - HEROKU_API_KEY=$HEROKU_API_KEY
         - git push heroku master
 #      before_deploy:
 #        - rm ./build/.gitignore
