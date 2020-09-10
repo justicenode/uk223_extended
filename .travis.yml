@@ -20,12 +20,12 @@ jobs:
         - chmod +x gradlew
       script: ./gradlew sonarqube
     - stage: continousDelivery
-      before_script:
-        - rm ./build/.gitignore
       script:
-        - heroku git:remote -a $HEROKU_STAGING_APP
+#        - heroku git:remote -a $HEROKU_STAGING_APP
         - heroku container:login
-        - git push heroku master
+        - heroku container:push web
+        - heroku container:release web
+#        - git push heroku master
     - stage: systemtests
       before_install:
         - sudo apt-get update
