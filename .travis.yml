@@ -7,14 +7,6 @@ stages:
   - continousIntegration
   - continousDelivery
 
-before_install:
-  - chmod +x gradlew
-  - sudo apt-get update
-
-install:
-  - sudo apt install curl
-  - npm install -g newman
-
 addons:
   sonarcloud:
     organization: $SONAR_USER
@@ -23,11 +15,18 @@ addons:
 jobs:
   include:
     - stage: continousIntegration
+      before_install:
+        - chmod +x gradlew
       script: ./gradlew sonarqube
     - stage: continousDelivery
+      before_install:
+        - sudo apt-get update
+      install:
+        - sudo apt install curl
+        - npm install -g newman
       deploy:
         provider: heroku
-        api-key: $HEROKU_API_KEY
+        api_key: $HEROKU_API_KEY
         app: $HEROKU_STAGING_APP
         strategy: git
       after_deploy:
