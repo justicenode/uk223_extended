@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     // The logic for retrieving a single user with a given id
     @Override
     public User findById(int id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     // The logic for updating an existing user with a given id and data

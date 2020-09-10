@@ -8,6 +8,7 @@ public class AuctionDTO {
     private Calendar endDate;
     private String name;
 
+    // Empty default constructor
     public AuctionDTO(){}
 
     public int getId() {

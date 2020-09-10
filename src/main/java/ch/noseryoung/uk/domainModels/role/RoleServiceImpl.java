@@ -32,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
     // The logic for retrieving a single role with a given id
     @Override
     public Role findById(int id) {
-        return roleRepository.findById(id).get();
+        return roleRepository.findById(id).orElse(null);
     }
 
     // The logic for updating an existing role with a given id and data

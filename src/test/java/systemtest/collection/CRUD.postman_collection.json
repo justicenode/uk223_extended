@@ -1,0 +1,219 @@
+{
+  "info": {
+    "_postman_id": "1d366c11-5452-45fc-b84b-e672d9df58b6",
+    "name": "CRUD",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CreateUser",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "4c2fb767-e497-42bf-9d75-2b033be0b3ba",
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Check if created user is equals returned user\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.firstName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).firstName);",
+              "    pm.expect(jsonData.lastName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).lastName);",
+              "    pm.expect(jsonData.email).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).email);",
+              "    pm.environment.set(\"userDTOToBeTestedAgainst1\",JSON.stringify(jsonData));",
+              "    pm.environment.set(\"userDTOToBeTestedAgainstId1\",jsonData.id);",
+              "});",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{{userDTOToBeTestedAgainst1}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://uk223.herokuapp.com/users",
+          "protocol": "https",
+          "host": [
+            "uk223",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FindUser",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "1b03b5e6-0516-4221-8a16-974b020a5f1b",
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Check if user exists\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.eql(pm.environment.get(\"userDTOToBeTestedAgainstId1\"));",
+              "    pm.expect(jsonData.firstName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).firstName);",
+              "    pm.expect(jsonData.lastName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).lastName);",
+              "    pm.expect(jsonData.email).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).email);",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://uk223.herokuapp.com/users/{{userDTOToBeTestedAgainstId1}}",
+          "protocol": "https",
+          "host": [
+            "uk223",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userDTOToBeTestedAgainstId1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateUser",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "9ee9497b-e55f-4070-b808-42456ac2100c",
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Check if created user is equals returned user\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.eql(pm.environment.get(\"userDTOToBeTestedAgainstId1\"));",
+              "    pm.expect(jsonData.firstName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).firstName);",
+              "    pm.expect(jsonData.lastName).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).lastName);",
+              "    pm.expect(jsonData.email).to.eql(JSON.parse(pm.environment.get(\"userDTOToBeTestedAgainst1\")).email);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{{userDTOToBeTestedAgainst1}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://uk223.herokuapp.com/users/{{userDTOToBeTestedAgainstId1}}",
+          "protocol": "https",
+          "host": [
+            "uk223",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userDTOToBeTestedAgainstId1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteUser",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "9ee9497b-e55f-4070-b808-42456ac2100c",
+            "exec": [
+              "pm.test(\"Response time is less than 1000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});",
+              "",
+              "pm.test(\"Check if no body is returned\", function () {",
+              "    pm.responseBody === null",
+              "})",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://uk223.herokuapp.com/users/{{userDTOToBeTestedAgainstId1}}",
+          "protocol": "https",
+          "host": [
+            "uk223",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userDTOToBeTestedAgainstId1}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 // This is an example service implementation with coded out CRUD logic
 // Note that the @Service annotation belongs on here as the effective logic is found here
@@ -32,7 +33,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     // The logic for retrieving a single authority with a given id
     @Override
     public Authority findById(int id) {
-        return authorityRepository.findById(id).get();
+        return authorityRepository.findById(id).orElse(null);
     }
 
     // The logic for updating an existing authority with a given id and data
