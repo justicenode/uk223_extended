@@ -21,11 +21,9 @@ jobs:
       script: ./gradlew sonarqube
     - stage: continousDelivery
       script:
-#        - heroku git:remote -a $HEROKU_STAGING_APP
         - heroku container:login
-        - heroku container:push web
+        - heroku container:push web -a $HEROKU_STAGING_APP
         - heroku container:release web
-#        - git push heroku master
     - stage: systemtests
       before_install:
         - sudo apt-get update
