@@ -6,6 +6,7 @@ node_js:
 stages:
   - continousIntegration
   - continousDelivery
+  - systemtests
 
 addons:
   sonarcloud:
@@ -23,8 +24,8 @@ jobs:
         - rm ./build/.gitignore
       script:
         - heroku git:remote -a $HEROKU_STAGING_APP
-        - echo $HEROKU_API_KEY
-        - HEROKU_API_KEY=$HEROKU_API_KEY
+        - git remote
+        - heroku login
         - git push heroku master
 #      before_deploy:
 #        - rm ./build/.gitignore
@@ -33,7 +34,7 @@ jobs:
 #        api_key: $HEROKU_API_KEY
 #        app: 
 #        strategy: git
-    -
+    - stage: systemtests
       before_install:
         - sudo apt-get update
       install:
