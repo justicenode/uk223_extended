@@ -24,16 +24,8 @@ jobs:
         - rm ./build/.gitignore
       script:
         - heroku git:remote -a $HEROKU_STAGING_APP
-        - git remote
-        - heroku login
+        - heroku container:login
         - git push heroku master
-#      before_deploy:
-#        - rm ./build/.gitignore
-#      deploy:
-#        provider: heroku
-#        api_key: $HEROKU_API_KEY
-#        app: 
-#        strategy: git
     - stage: systemtests
       before_install:
         - sudo apt-get update
