@@ -8,11 +8,12 @@ stages:
   - continousDelivery
 
 before_install:
-#  - sudo apt-get update
+  - chmod +x gradlew
+  - sudo apt-get update
 
-#install:
-#  - sudo apt install curl
-#  - npm install -g newman
+install:
+  - sudo apt install curl
+  - npm install -g newman
 
 addons:
   sonarcloud:
@@ -22,9 +23,7 @@ addons:
 jobs:
   include:
     - stage: continousIntegration
-      script: 
-        - chmod +x gradlew
-        - ./gradlew sonarqube
+      script: ./gradlew sonarqube
     - stage: continousDelivery
       deploy:
         provider: heroku
@@ -33,6 +32,4 @@ jobs:
 #      after_success:
 #      script:
 #        - while [ $(curl -o /dev/null -s -w "%{http_code}\n" https://$HEROKU_STAGING_APP.herokuapp.com/) != 404 ];do echo 'Waiting for the Application to be started'; sleep 5; done
-#        - newman run src/test/java/systemtests/collection/CRUD.postman_collection.json -e src/test/java/systemtests/environment/xinnyi.postman_environment.json
-
-
+#        - newman run src/test/java/systemtests/collection/CRUD.postman_collection.json -e src/test/java/systemtests/environment/justicenode.postman_environment.json

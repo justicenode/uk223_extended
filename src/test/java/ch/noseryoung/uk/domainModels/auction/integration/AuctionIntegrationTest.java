@@ -42,9 +42,7 @@ public class AuctionIntegrationTest {
 
     @Test
     public void findById() throws Exception {
-        Auction auctionToBeTestedAgainst = new Auction().setName("asdf").setPrice(12.5);
-
-        auctionRepository.save(auctionToBeTestedAgainst);
+        Auction auctionToBeTestedAgainst = auctionRepository.save(new Auction().setName("asdf").setPrice(12.5));
 
         mvc.perform(
                 MockMvcRequestBuilders.get("/auctions/{id}", auctionToBeTestedAgainst.getId())

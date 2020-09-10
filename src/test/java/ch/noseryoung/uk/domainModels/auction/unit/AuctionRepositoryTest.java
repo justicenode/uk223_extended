@@ -1,4 +1,4 @@
-package ch.noseryoung.uk.domainModels.auction.unitTests;
+package ch.noseryoung.uk.domainModels.auction.unit;
 
 import ch.noseryoung.uk.domainModels.auction.Auction;
 import ch.noseryoung.uk.domainModels.auction.AuctionRepository;

@@ -1,5 +1,7 @@
 package ch.noseryoung.uk.domainModels.auction;
 
+import ch.noseryoung.uk.domainModels.auction.dto.AuctionDTO;
+import ch.noseryoung.uk.domainModels.auction.dto.AuctionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,30 +13,32 @@ import java.util.List;
 @RequestMapping("/auctions")
 public class AuctionController {
     private final AuctionService auctionService;
+    private final AuctionMapper auctionMapper;
 
     @Autowired
-    public AuctionController(AuctionService auctionService) {
+    public AuctionController(AuctionService auctionService, AuctionMapper auctionMapper) {
         this.auctionService = auctionService;
+        this.auctionMapper = auctionMapper;
     }
 
     @GetMapping({"/", ""})
-    public ResponseEntity<List<Auction>> get() {
-        return new ResponseEntity<>(auctionService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<AuctionDTO>> get() {
+        return new ResponseEntity<>(auctionMapper.toDTOs(auctionService.findAll()), HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<Auction> getById(@PathVariable int id) {
-        return new ResponseEntity<>(auctionService.findById(id), HttpStatus.OK);
+    public ResponseEntity<AuctionDTO> getById(@PathVariable int id) {
+        return new ResponseEntity<>(auctionMapper.toDTO(auctionService.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping({"/", ""})
-    public ResponseEntity<Auction> create(@RequestBody Auction auction) {
-        return new ResponseEntity<>(auctionService.create(auction), HttpStatus.OK);
+    public ResponseEntity<AuctionDTO> create(@RequestBody AuctionDTO auction) {
+        return new ResponseEntity<>(auctionMapper.toDTO(auctionService.create(auctionMapper.fromDTO(auction))), HttpStatus.OK);
     }
 
     @PutMapping({"/{id}"})
-    public ResponseEntity<Auction> update(@PathVariable int id, @RequestBody Auction auction) {
-        return new ResponseEntity<>(auctionService.updateById(id, auction), HttpStatus.OK);
+    public ResponseEntity<AuctionDTO> update(@PathVariable int id, @RequestBody AuctionDTO auction) {
+        return new ResponseEntity<>(auctionMapper.toDTO(auctionService.updateById(id, auctionMapper.fromDTO(auction))), HttpStatus.OK);
     }
 
     @DeleteMapping({"/{id}"})
@@ -44,7 +48,7 @@ public class AuctionController {
     }
 
     @GetMapping({"/range/{lowerThreshold}/{upperThreshold}"})
-    public ResponseEntity<List<Auction>> range(@PathVariable int lowerThreshold, @PathVariable int upperThreshold) {
-        return new ResponseEntity<>(auctionService.range(lowerThreshold, upperThreshold), HttpStatus.OK);
+    public ResponseEntity<List<AuctionDTO>> range(@PathVariable int lowerThreshold, @PathVariable int upperThreshold) {
+        return new ResponseEntity<>(auctionMapper.toDTOs(auctionService.range(lowerThreshold, upperThreshold)), HttpStatus.OK);
     }
 }
