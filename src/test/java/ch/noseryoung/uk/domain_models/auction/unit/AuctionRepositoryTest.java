@@ -54,7 +54,7 @@ class AuctionRepositoryTest {
     }
 
     @Test
-    public void findAll() {
+    void findAll() {
         // Act
         List<Auction> auctionsFromDB = auctionRepository.findAll();
 

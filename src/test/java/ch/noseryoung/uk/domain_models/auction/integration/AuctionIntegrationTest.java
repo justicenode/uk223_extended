@@ -3,7 +3,7 @@ package ch.noseryoung.uk.domain_models.auction.integration;
 import ch.noseryoung.uk.domain_models.auction.Auction;
 import ch.noseryoung.uk.domain_models.auction.AuctionRepository;
 import org.hamcrest.Matchers;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +36,12 @@ public class AuctionIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
-    @Before
+    @BeforeEach
     public void setUp() {
     }
 
     @Test
-    public void findById() throws Exception {
+    void findById() throws Exception {
         Auction auctionToBeTestedAgainst = auctionRepository.save(new Auction().setName("asdf").setPrice(12.5));
 
         mvc.perform(
@@ -56,7 +56,7 @@ public class AuctionIntegrationTest {
     }
 
     @Test
-    public void range() throws Exception {
+    void range() throws Exception {
         int min = 0;
         int max = 50;
 

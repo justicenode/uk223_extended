@@ -121,8 +121,8 @@ class AuctionControllerTest {
         ArgumentCaptor<Integer> arg2 = ArgumentCaptor.forClass(Integer.class);
         verify(auctionService, times(1)).range(arg1.capture(), arg2.capture());
 
-        assertEquals((int) arg1.getValue(), 1);
-        assertEquals((int) arg2.getValue(), 100);
+        assertEquals(1, (int) arg1.getValue());
+        assertEquals(100, (int) arg2.getValue());
     }
 
     @Test
