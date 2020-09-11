@@ -3,6 +3,7 @@ package ch.noseryoung.uk.domain_models.auction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +48,6 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> range(int lowerThreshold, int upperThreshold) {
 //        return auctionRepository.findAll().stream().filter(auction -> auction.getPrice() >= lowerThreshold && auction.getPrice() <= upperThreshold).collect(Collectors.toList());
-        return auctionRepository.findAll().stream().filter(auction -> auction.getPrice() >= lowerThreshold && auction.getPrice() <= upperThreshold).sorted((a, b) -> a.getPrice() > b.getPrice() ? a.getPrice() == b.getPrice() ? 0 : 1 : -1).collect(Collectors.toList());
+        return auctionRepository.findAll().stream().filter(auction -> auction.getPrice() >= lowerThreshold && auction.getPrice() <= upperThreshold).sorted(Comparator.comparingDouble(Auction::getPrice)).collect(Collectors.toList());
     }
 }
