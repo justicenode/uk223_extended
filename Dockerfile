@@ -7,4 +7,4 @@ FROM openjdk:11.0.8-jdk-slim
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
 EXPOSE 8080
-CMD ["java","-jar","/app/spring-boot-application.jar"]
+CMD ["java", "-Xmx400m", "-jar" ,"/app/spring-boot-application.jar"]
