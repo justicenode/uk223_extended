@@ -14,7 +14,7 @@ This project is/was part of a ük course. The main purpose was to get to know sp
 
 ## Configuration
 
-|env var | example |
-|---|---|
-|JDBC_DATABASE_URL|jdbc:postgresql:5432/uk223|
-
+|env var|example|description|
+|---|---|---|
+|JDBC_DATABASE_URL|jdbc:postgresql:5432/uk223||
+|PORT|8080|post to run the app on|
